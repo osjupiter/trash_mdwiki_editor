@@ -1,12 +1,15 @@
 {
-  "name": "trash_node_editor",
+  "name": "trash_mdwiki_editor",
   "version": "1.0.0",
-  "description": "simple editor for mdwiki",
+  "description": "a simple editor for mdwiki",
   "main": "main.js",
   "dependencies": {
+    "basic-auth-connect": "^1.0.0",
     "body-parser": "^1.15.0",
+    "confu": "^0.0.3",
     "express": "^4.13.4",
-    "jade": "^1.11.0"
+    "jade": "^1.11.0",
+    "traverse": "^0.6.6"
   },
   "devDependencies": {},
   "scripts": {

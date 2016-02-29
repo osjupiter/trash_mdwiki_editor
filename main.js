@@ -1,36 +1,36 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
+var config=require("confu")("./","config.json")
 
 app.use(require('body-parser')());
 app.set('view engine', 'jade');
+var basicAuth = require('basic-auth-connect');
+app.use(basicAuth(config.user, config.passward));
 
+var isValidMarkDown=function(name){
+    if(name=="")return false;
+    if(!name.match(/\.md/))return false;
+    if(name.match(/\//))return false;
+    return true
+}
 
 app.get('/', function (req, res) {
-    var files=fs.readdirSync("..");
-    files=files.filter(function(f){return /.*\.md$/.test(f);})
-    console.log("new axccess!!!")
+    var files=fs.readdirSync(config.mdwikiDir);
+    files=files.filter(isValidMarkDown)
     var name=req.query.name;
-    if(name=="")return;
-    if(!name.match(/\.md/))return;
-    if(name.match(/\//))return;
-    console.log(req.query)
-    var content=fs.readFileSync("../"+name);
+    if(!isValidMarkDown(name))res.send("Illigal")
+    var content=fs.readFileSync(config.mdwikiDir+name);
     res.render('index', { title: name, files: files, content:content});
 });
 
 app.post("/save",function(req,res){
-    console.log(req.body);
     var name=req.body.name;
     var content=req.body.content.replace(/\r\n?/g,"\n"); 
     
-    console.log(req.body)
-    if(!name.match(/\.md/))return;
-    if(name.match(/\//))return;
-    fs.writeFileSync("../"+name,content)
+    if(!isValidMarkDown(name))res.send("Illigal")
+    fs.writeFileSync(config.mdwikiDir+name,content)
     res.redirect('/?name='+name);
 })
 
-app.listen(3001, function () {
-      console.log('Example app listening on port 3001!');
-});
+app.listen(config.port);
