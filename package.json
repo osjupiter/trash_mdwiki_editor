@@ -1,0 +1,17 @@
+{
+  "name": "trash_node_editor",
+  "version": "1.0.0",
+  "description": "simple editor for mdwiki",
+  "main": "main.js",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "jade": "^1.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
