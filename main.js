@@ -19,8 +19,14 @@ app.get('/', function (req, res) {
     var files=fs.readdirSync(config.mdwikiDir);
     files=files.filter(isValidMarkDown)
     var name=req.query.name;
-    if(!isValidMarkDown(name))res.send("Illigal")
-    var content=fs.readFileSync(config.mdwikiDir+name);
+    var content;
+    if(name=="new"){
+        content=""
+    }else if(!isValidMarkDown(name)){
+        res.send("Illigal")
+    }else{
+        content=fs.readFileSync(config.mdwikiDir+name);
+    }
     res.render('index', { title: name, files: files, content:content});
 });
 
