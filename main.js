@@ -43,5 +43,13 @@ app.post("/save",function(req,res){
     fs.writeFileSync(config.mdwikiDir+name,content)
     res.redirect('/?name='+name);
 })
+app.post("/delete",function(req,res){
+    var name=req.body.name;
+    
+    if(!isValidMarkDown(name))res.send("Illigal")
+    fs.unlinkSync(config.mdwikiDir+name)
+    res.redirect('/?name=new');
+    
+})
 
 app.listen(config.port);

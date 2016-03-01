@@ -19,3 +19,9 @@ html
             - }else{
                 input(type="hidden" name="name" value=title)
             - }
+        
+        - if(title!="new")
+            form(method="post" action="/delete")
+                input(type="hidden" name="name" value=title)
+                input(type="submit" value="削除") 
+
