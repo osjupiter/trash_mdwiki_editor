@@ -27,7 +27,12 @@ app.get('/', function (req, res) {
     }else{
         content=fs.readFileSync(config.mdwikiDir+name);
     }
-    res.render('index', { title: name, files: files, content:content});
+    res.render('index', { 
+        title: name, 
+        files: files, 
+        content:content,
+        backURI:config.backURI
+    });
 });
 
 app.post("/save",function(req,res){
