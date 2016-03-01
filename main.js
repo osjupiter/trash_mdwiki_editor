@@ -39,14 +39,20 @@ app.post("/save",function(req,res){
     var name=req.body.name;
     var content=req.body.content.replace(/\r\n?/g,"\n"); 
     
-    if(!isValidMarkDown(name))res.send("Illigal")
+    if(!isValidMarkDown(name)){
+        res.send("Illigal")
+        return;
+    }
     fs.writeFileSync(config.mdwikiDir+name,content)
     res.redirect('/?name='+name);
 })
 app.post("/delete",function(req,res){
     var name=req.body.name;
     
-    if(!isValidMarkDown(name))res.send("Illigal")
+    if(!isValidMarkDown(name)){
+        res.send("Illigal")
+        return;
+    }
     fs.unlinkSync(config.mdwikiDir+name)
     res.redirect('/?name=new');
     
